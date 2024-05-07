@@ -19,15 +19,17 @@
                         <div class="col-sm-12 col-lg-6">
                             <h4 class="card-title">Торговцы</h4>
                         </div>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="text-sm-end">
-                                <a href="{{ route('merchants.create') }}" type="button"
-                                   class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                    <i class="fa fa-plus align-middle font-size-16"></i>
-                                    Создать
-                                </a>
+                        @can('merchants.create')
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="text-sm-end">
+                                    <a href="{{ route('merchants.create') }}" type="button"
+                                       class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
+                                        <i class="fa fa-plus align-middle font-size-16"></i>
+                                        Создать
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                        @endcan
                         <div class="col-sm-12 col-lg-12">
                             <table class="table table-centered mb-0">
                                 <thead>
@@ -41,7 +43,30 @@
                                 <tbody>
                                     @foreach($merchants as $merchant)
                                         <tr>
-
+                                            <td>{{ $merchant->id }}</td>
+                                            <td>{{ $merchant->name }}</td>
+                                            <td>{{ $merchant->phone }}</td>
+                                            <td>
+                                                @canany(['merchant.edit', 'merchant.delete'])
+                                                    <div class="btn-group btn-group-sm gap-1">
+                                                        @can('merchant.edit')
+                                                            <a href="{{ route('merchants.edit', $merchant->id) }}"
+                                                               class="btn btn-success btn-sm">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('merchant.delete')
+                                                            <form action="{{ route('merchants.delete', $merchant->id) }}" method="post">
+                                                                @csrf
+                                                                @method('delete')
+                                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </div>
+                                                @endcanany
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
