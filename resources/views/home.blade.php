@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+    Основная
+@endsection
+
 @section('content')
     <!-- start page title -->
     <div class="row mb-3">

@@ -40,7 +40,14 @@
                     </ul>
                 </li>
                 @endcanany
-
+                @can('Просмотр торговцев')
+                    <li>
+                        <a href="{{ route('merchants.index') }}" class="waves-effect">
+                            <i class="fas fa-store"></i>
+                            <span>Торговцы</span>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </div>
     </div>
