@@ -50,9 +50,9 @@
                                         <td>{{ $transaction->id }}</td>
                                         <td>{{ $transaction->product->name }}</td>
                                         <td>{{ $transaction->count }}</td>
-                                        <td>{{ $transaction->price }}</td>
-                                        <td>{{ $transaction->sum }}</td>
-                                        <td>{{ $transaction->merchant_id }}</td>
+                                        <td>{{ number_format($transaction->price) }}</td>
+                                        <td>{{ number_format($transaction->sum) }}</td>
+                                        <td>{{ $transaction->merchant->name ?? '-' }}</td>
                                         <td>
                                             @if($transaction->type == 'in')
                                                 <span class="badge badge-soft-success font-size-12">Приход</span>

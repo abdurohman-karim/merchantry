@@ -65,7 +65,7 @@
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="type" id="flexRadioDefault2" value="out" >
+                                                <input class="form-check-input" type="radio" name="type" id="flexRadioDefault2" value="out">
                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                     Расход
                                                 </label>
@@ -94,10 +94,10 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="col-md-4" id="merchantSelectContainer" style="display: none;">
+                                    <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label">Выберите торговца</label>
-                                            <select class="select2 form-control" name="merchant_id"
+                                            <select id="merchantSelectContainer" disabled class="select2 form-control @error('merchant_id') is-invalid @enderror" name="merchant_id"
                                                     data-placeholder="Выберите торговца">
                                                 <option></option>
                                                 <!-- Populate options dynamically here -->
@@ -154,9 +154,9 @@
             // Event listener for radio button change
             $('input[name="type"]').on('change', function() {
                 if ($(this).val() === 'out') {
-                    $('#merchantSelectContainer').show(); // Show merchant selection input
+                    $('#merchantSelectContainer').attr('disabled', false); // Show merchant selection input
                 } else {
-                    $('#merchantSelectContainer').hide(); // Hide merchant selection input
+                    $('#merchantSelectContainer').attr('disabled', true); // Hide merchant selection input
                 }
             });
 

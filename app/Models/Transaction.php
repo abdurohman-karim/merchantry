@@ -25,4 +25,8 @@ class Transaction extends Model
     public function product(){
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function merchant(){
+        return $this->belongsTo(Merchant::class, 'merchant_id');
+    }
 }

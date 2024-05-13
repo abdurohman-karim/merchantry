@@ -33,53 +33,32 @@ class TransactionController extends Controller
             'type' => 'required',
         ]);
 
-        dd($request->all());
-
         $product_price = str_replace(',', '', $request->price);
 
         $product = Product::find($request->product_id);
 
         if ($request->type == 'in') {
-
-            $product_count = (int)$product->count + (int)$request->count;
-            $product->count = (string)$product_count;
-
+            $product->count = (string)((int)$product->count + (int)$request->count);
             $sum_count = (int)$request->count * (int)$product_price;
-
-            Transaction::create([
-                'product_id' => $request->product_id,
-                'count' => $request->count,
-                'type' => $request->type,
-                'date' => date('Y-m-d'),
-                'sum' => (string)$sum_count,
-                'price' => $product_price,
-            ]);
-            $product->save();
-
-            return redirect()->route('transactions.index');
+        } elseif ($request->type == 'out') {
+            $product->count = (string)((int)$product->count - (int)$request->count);
+            $sum_count = $request->count * $product->price;
         }
 
+        Transaction::create([
+            'product_id' => $request->product_id,
+            'count' => $request->count,
+            'type' => $request->type,
+            'date' => date('Y-m-d'),
+            'sum' => (string)$sum_count,
+            'price' => $product_price,
+            'merchant_id' => $request->merchant_id ?? null, // Add null coalescing for merchant_id
+        ]);
 
-        if ($request->type == 'out') {
-            $product_count = (int)$product->count - (int)$request->count;
-            $product->count = (string)$product_count;
-
-            Transaction::create([
-                'product_id' => $request->product_id,
-                'count' => $request->count,
-                'type' => $request->type,
-                'sum_count' => $request->count * $product->price,
-                'date' => date('Y-m-d'),
-                'sum' => $request->count * $product->price,
-                'price' => $product_price,
-                'merchant_id' => 'unired'
-            ]);
-            $product->save();
-
-            return redirect()->route('transactions.index');
-        }
+        $product->save();
 
         return redirect()->route('transactions.index');
     }
+
 
 }
