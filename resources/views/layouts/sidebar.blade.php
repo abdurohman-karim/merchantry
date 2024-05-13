@@ -40,11 +40,27 @@
                     </ul>
                 </li>
                 @endcanany
-                @can('Просмотр торговцев')
+                @can('merchants.index')
                     <li>
-                        <a href="{{ route('merchants.index') }}" class="waves-effect">
+                        <a href="{{ route('merchants.index') }}" class="waves-effect {{ Request::is('merchants*') ? "mm-active":'' }}">
                             <i class="fas fa-store"></i>
                             <span>Торговцы</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('products.index')
+                    <li>
+                        <a href="{{ route('products.index') }}" class="waves-effect {{ Request::is('products*') ? "mm-active":'' }}">
+                            <i class="fas fa-cart-plus"></i>
+                            <span>Продукты</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('transactions.index')
+                    <li>
+                        <a href="{{ route('transactions.index') }}" class="waves-effect {{ Request::is('transactions*') ? "mm-active":'' }}">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Транзакции</span>
                         </a>
                     </li>
                 @endcan

@@ -11,7 +11,10 @@ class Product extends Model
     protected $fillable = [
         'name',
         'price',
-        'pack_cnt',
+        'count',
     ];
 
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
 }

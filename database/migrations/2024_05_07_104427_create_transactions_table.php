@@ -16,10 +16,10 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->string('pack');
-            $table->string('count');
-            $table->string('sum_pack');
-            $table->string('sum_count');
+            $table->string('pack')->nullable();
+            $table->string('count')->nullable();
+            $table->string('sum_pack')->nullable();
+            $table->string('sum_count')->nullable();
             $table->string('sum');
             $table->integer('merchant_id')->nullable();
             $table->string('type');
