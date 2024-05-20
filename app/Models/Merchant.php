@@ -13,4 +13,9 @@ class Merchant extends Model
         'name',
         'phone'
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

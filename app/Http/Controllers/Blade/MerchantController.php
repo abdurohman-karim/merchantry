@@ -16,6 +16,12 @@ class MerchantController extends Controller
         return view('pages.merchant.index', compact('merchants'));
     }
 
+    public function show($id){
+        is_forbidden('merchants.show');
+        $merchant = Merchant::find($id);
+        return view('pages.merchant.show', compact('merchant'));
+    }
+
     public function create(){
         is_forbidden('merchants.create');
         return view('pages.merchant.create');

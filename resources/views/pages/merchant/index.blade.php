@@ -44,7 +44,9 @@
                                     @foreach($merchants as $merchant)
                                         <tr>
                                             <td>{{ $merchant->id }}</td>
-                                            <td>{{ $merchant->name }}</td>
+                                            <td>
+                                                <a href="{{ route('merchants.show', $merchant->id) }}">{{ $merchant->name }}</a>
+                                            </td>
                                             <td>{{ $merchant->phone }}</td>
                                             <td>
                                                 @canany(['merchant.edit', 'merchant.delete'])

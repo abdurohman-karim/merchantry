@@ -47,8 +47,8 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label">Кол-во</label>
-                                            <input type="text" name="pack_cnt" class="form-control numberFormat @error('pack_cnt') is-invalid @enderror" value="{{ old('pack_cnt', $product->pack_cnt) }}">
-                                            @error('pack_cnt')
+                                            <input type="text" name="count" class="form-control numberFormat @error('count') is-invalid @enderror" value="{{ old('count', $product->count) }}">
+                                            @error('count')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

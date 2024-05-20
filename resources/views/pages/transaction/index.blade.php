@@ -48,7 +48,7 @@
                                 @foreach($transactions as $transaction)
                                     <tr>
                                         <td>{{ $transaction->id }}</td>
-                                        <td>{{ $transaction->product->name }}</td>
+                                        <td>{{ $transaction->product->name ?? '-' }}</td>
                                         <td>{{ $transaction->count }}</td>
                                         <td>{{ number_format($transaction->price) }}</td>
                                         <td>{{ number_format($transaction->sum) }}</td>

@@ -26,14 +26,13 @@ class ProductController extends Controller
         is_forbidden('products.create');
         $request->validate([
             'name' => 'required',
-            'price' => 'required',
-            'count' => 'required',
+            'price' => 'required'
         ]);
 
         $product = new Product();
         $product->name = $request->name;
         $product->price = str_replace(',', '', $request->price);
-        $product->count = str_replace(',', '', $request->count);
+        $product->count = '0';
         $product->save();
 
         message_set('Товар успешно добавлен', 'success');
@@ -51,14 +50,13 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required',
-            'count' => 'required',
         ]);
 
         $product = Product::find($id);
 
         $product->name = $request->name;
         $product->price = str_replace(',', '', $request->price);
-        $product->count = str_replace(',', '', $request->count);
+        $product->count = str_replace(',', '', $request->count ?? '0');
         $product->save();
 
         message_set('Товар успешно обновлен', 'success');

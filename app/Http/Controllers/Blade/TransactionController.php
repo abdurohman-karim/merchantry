@@ -7,6 +7,7 @@ use App\Models\Merchant;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -34,31 +35,48 @@ class TransactionController extends Controller
         ]);
 
         $product_price = str_replace(',', '', $request->price);
-
+        $product_count = str_replace(',', '', $request->count);
         $product = Product::find($request->product_id);
 
-        if ($request->type == 'in') {
-            $product->count = (string)((int)$product->count + (int)$request->count);
-            $sum_count = (int)$request->count * (int)$product_price;
-        } elseif ($request->type == 'out') {
-            $product->count = (string)((int)$product->count - (int)$request->count);
-            $sum_count = $request->count * $product->price;
+
+
+        try {
+            DB::beginTransaction();
+            if ($request->type == 'in') {
+                $product->count = (string)((int)$product->count + (int)$product_count);
+                $sum_count = (int)$product_count * (int)$product_price ?? (int)$product->price;
+            } elseif ($request->type == 'out') {
+                if ($product->count < $request->count) {
+                    message_set('Недостаточно единиц продукта', 'error');
+                    return redirect()->route('transactions.create');
+                }
+
+
+                $product->count = (string)((int)$product->count - (int)$request->count);
+                $sum_count = (int)$product_count * (int)$product_price;
+            }
+
+            Transaction::create([
+                'product_id' => $request->product_id,
+                'count' => str_replace(',', '', $request->count),
+                'type' => $request->type,
+                'date' => date('Y-m-d'),
+                'sum' => (string)$sum_count,
+                'price' => $product_price,
+                'merchant_id' => $request->merchant_id ?? null, // Add null coalescing for merchant_id
+            ]);
+
+            $product->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            message_set('Произошла ошибка', 'error');
+            return redirect()->back();
         }
 
-        Transaction::create([
-            'product_id' => $request->product_id,
-            'count' => $request->count,
-            'type' => $request->type,
-            'date' => date('Y-m-d'),
-            'sum' => (string)$sum_count,
-            'price' => $product_price,
-            'merchant_id' => $request->merchant_id ?? null, // Add null coalescing for merchant_id
-        ]);
-
-        $product->save();
-
+        message_set('Транзакция успешно добавлена', 'success');
         return redirect()->route('transactions.index');
     }
-
-
 }
