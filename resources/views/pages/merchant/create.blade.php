@@ -35,7 +35,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Номер</label>
-                                            <input type="text" name="phone" class="form-control numberFormat @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
+                                            <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}">
                                             @error('phone')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
