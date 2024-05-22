@@ -7,7 +7,7 @@
     <div class="row mb-3">
         <div class="col-lg-8 col-sm-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Добавить торговца</h4>
+                <h4 class="mb-sm-0 font-size-18">Добавить</h4>
             </div>
         </div>
     </div>
@@ -54,7 +54,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </form>
                 </div>
