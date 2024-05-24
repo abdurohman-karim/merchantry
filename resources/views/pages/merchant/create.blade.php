@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Добавить торговца
+    Добавить магазин
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
         <div class="col-md-3 col-lg-3 offset-lg-4 offset-md-4 col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Новый торговец</h4>
+                    <h4 class="card-title mb-4">Новый магазин</h4>
                     <form action="{{route('merchants.store')}}" method="post">
                         @csrf
                         <div class="row">

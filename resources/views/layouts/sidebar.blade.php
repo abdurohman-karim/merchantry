@@ -44,7 +44,7 @@
                     <li>
                         <a href="{{ route('merchants.index') }}" class="waves-effect {{ Request::is('merchants*') ? "mm-active":'' }}">
                             <i class="fas fa-store"></i>
-                            <span>Торговцы</span>
+                            <span>Магазины</span>
                         </a>
                     </li>
                 @endcan

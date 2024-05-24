@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('title')
-    Торговцы
+    Магазины
 @endsection
 
 @section('content')
     <div class="row mb-3">
         <div class="col-lg-8 col-sm-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Торговцы</h4>
+                <h4 class="mb-sm-0 font-size-18">Магазины</h4>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col-sm-12 col-lg-6">
-                            <h4 class="card-title">Торговцы</h4>
+                            <h4 class="card-title">Магазины</h4>
                         </div>
                         @can('merchants.create')
                             <div class="col-sm-12 col-lg-6">

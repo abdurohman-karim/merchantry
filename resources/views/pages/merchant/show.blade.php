@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('title')
-    Торговец - {{ $merchant->name }}
+    Магазин - {{ $merchant->name }}
 @endsection
 
 @section('content')
     <div class="row mb-3">
         <div class="col-lg-8 col-sm-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Торговцы</h4>
+                <h4 class="mb-sm-0 font-size-18">Магазин</h4>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-4">
-                        Торговец : {{ $merchant->name }}
+                        Название : {{ $merchant->name }}
                         <span class="float-end">
                             Номер: {{ $merchant->phone }}
                         </span>

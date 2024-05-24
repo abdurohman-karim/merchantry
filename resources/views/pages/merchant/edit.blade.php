@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('title')
-    Редактирование торговца
+    Редактирование магазина
 @endsection
 
 @section('content')
     <div class="row mb-3">
         <div class="col-lg-8 col-sm-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Редактирование торговца</h4>
+                <h4 class="mb-sm-0 font-size-18">Редактирование магазина</h4>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="col-md-3 col-lg-3 offset-lg-4 offset-md-4 col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Торговец: {{ $merchant->name }}</h4>
+                    <h4 class="card-title mb-4">Название: {{ $merchant->name }}</h4>
                     <form action="{{route('merchants.update', $merchant->id)}}" method="post">
                         @csrf
                         <div class="row">
