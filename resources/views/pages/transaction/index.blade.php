@@ -19,35 +19,23 @@
                         <div class="col-sm-12 col-lg-6">
                             <h4 class="card-title">Транзакции</h4>
                         </div>
-                        @can('transactions.create')
-                            <div class="col-sm-12 col-lg-6">
-                                <div class="text-sm-end">
-                                    <a href="{{ route('transactions.create') }}" type="button"
-                                       class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2">
-                                        <i class="fa fa-plus align-middle font-size-16"></i>
-                                        Создать
-                                    </a>
-                                </div>
-                            </div>
-                        @endcan
                         <div class="col-sm-12 col-lg-12">
                             <table class="table table-centered mb-0">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Дата</th>
                                     <th>Продукт</th>
                                     <th>Количество</th>
                                     <th>Цена</th>
                                     <th>Сумма</th>
                                     <th>Мерчант</th>
                                     <th>Тип</th>
-                                    <th>Действия</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($transactions as $transaction)
                                     <tr>
-                                        <td>{{ $transaction->id }}</td>
+                                        <td>{{ $transaction->created_at }}</td>
                                         <td>{{ $transaction->product->name ?? '-' }}</td>
                                         <td>{{ $transaction->count }}</td>
                                         <td>{{ number_format($transaction->price) }}</td>
@@ -59,9 +47,6 @@
                                             @else
                                                 <span class="badge badge-soft-danger font-size-12">Расход</span>
                                             @endif
-                                        </td>
-                                        <td>
-
                                         </td>
                                     </tr>
                                 @endforeach
