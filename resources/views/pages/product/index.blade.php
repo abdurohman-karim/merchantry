@@ -37,6 +37,7 @@
                                     <th>#</th>
                                     <th>Название</th>
                                     <th>Цена</th>
+                                    <th>Цена продажи</th>
                                     <th>Количество</th>
                                     <th>Действия</th>
                                 </tr>
@@ -52,7 +53,8 @@
                                                 {{ $product->name }}
                                             @endcan
                                         </td>
-                                        <td>{{ $product->price }}</td>
+                                        <td>{{ number_format($product->price) }}</td>
+                                        <td>{{ number_format($product->sale_price) }}</td>
                                         <td>{{ $product->count }}</td>
                                         <td>
                                             @can('products.delete')

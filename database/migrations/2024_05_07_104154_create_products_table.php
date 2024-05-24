@@ -17,6 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->double('price',8,2)->default(0);
+            $table->string('surcharge')->nullable();
+            $table->double('sale_price',8,2)->default(0);
             $table->string('count');
             $table->timestamps();
         });

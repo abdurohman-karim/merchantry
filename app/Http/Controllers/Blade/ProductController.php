@@ -32,6 +32,8 @@ class ProductController extends Controller
         $product = new Product();
         $product->name = $request->name;
         $product->price = str_replace(',', '', $request->price);
+        $product->surcharge = str_replace(',', '', $request->surcharge ?? '0');
+        $product->sale_price = str_replace(',', '', $request->sale_price ?? '0');
         $product->count = '0';
         $product->save();
 

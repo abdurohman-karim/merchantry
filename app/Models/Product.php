@@ -12,6 +12,8 @@ class Product extends Model
         'name',
         'price',
         'count',
+        'sale_price',
+        'surcharge'
     ];
 
     public function transactions(){
