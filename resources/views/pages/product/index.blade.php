@@ -37,6 +37,7 @@
                                     <th>#</th>
                                     <th>Название</th>
                                     <th>Цена</th>
+                                    <th>Наценка %</th>
                                     <th>Цена продажи</th>
                                     <th>Количество</th>
                                     <th>Действия</th>
@@ -54,6 +55,7 @@
                                             @endcan
                                         </td>
                                         <td>{{ number_format($product->price) }}</td>
+                                        <td>{{ $product->surcharge }}%</td>
                                         <td>{{ number_format($product->sale_price) }}</td>
                                         <td>{{ $product->count }}</td>
                                         <td>

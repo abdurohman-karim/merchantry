@@ -45,7 +45,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th></th>
                                 <th>Название продукта</th>
                                 <th>Цена</th>
                                 <th>Штук</th>
@@ -56,7 +56,7 @@
                         <tbody>
                             @foreach($merchant->transactions as $transaction)
                                 <tr>
-                                    <td>{{ $transaction->id }}</td>
+                                    <td>{{ $transaction->created_at }}</td>
                                     <td>
                                         <a href="{{ route('products.edit', $transaction->product_id) }}">
                                             {{ $transaction->product->name }}
