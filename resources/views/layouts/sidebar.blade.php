@@ -64,6 +64,22 @@
                         </a>
                     </li>
                 @endcan
+                @can('transactions.in')
+                    <li>
+                        <a href="{{ route('transactions.in') }}" class="waves-effect {{ Request::is('transactions/in*') ? "mm-active":'' }}">
+                            <i class="fas fa-arrow-circle-down"></i>
+                            <span>Приход</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('transactions.out')
+                    <li>
+                        <a href="{{ route('transactions.out') }}" class="waves-effect {{ Request::is('transactions/out*') ? "mm-active":'' }}">
+                            <i class="fas fa-arrow-circle-up"></i>
+                            <span>Расход</span>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </div>
     </div>

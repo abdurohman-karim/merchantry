@@ -39,9 +39,8 @@ Route::group(['middleware'=>"auth"],function (){
     Route::get('/transactions', [TransactionController::class,'index'])->name('transactions.index');
     Route::get('/transactions/create', [TransactionController::class,'create'])->name('transactions.create');
     Route::post('/transactions/store', [TransactionController::class,'store'])->name('transactions.store');
-    Route::get('/transactions/{id}/edit', [TransactionController::class,'edit'])->name('transactions.edit');
-    Route::put('/transactions/{id}/update', [TransactionController::class,'update'])->name('transactions.update');
-    Route::delete('/transactions/{id}/delete', [TransactionController::class,'delete'])->name('transactions.delete');
+    Route::get('/transactions/in', [TransactionController::class, 'income'])->name('transactions.in');
+    Route::get('/transactions/out', [TransactionController::class, 'outcome'])->name('transactions.out');
 
 
     # Resources
