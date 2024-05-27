@@ -41,6 +41,8 @@ Route::group(['middleware'=>"auth"],function (){
     Route::post('/transactions/store', [TransactionController::class,'store'])->name('transactions.store');
     Route::get('/transactions/in', [TransactionController::class, 'income'])->name('transactions.in');
     Route::get('/transactions/out', [TransactionController::class, 'outcome'])->name('transactions.out');
+    Route::post('/transactions/income', [TransactionController::class, 'incomeStore'])->name('transactions.income');
+    Route::post('/transactions/outcome', [TransactionController::class, 'outcomeStore'])->name('transactions.outcome');
 
 
     # Resources

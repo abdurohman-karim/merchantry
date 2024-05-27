@@ -58,7 +58,7 @@
                 @endcan
                 @can('transactions.index')
                     <li>
-                        <a href="{{ route('transactions.index') }}" class="waves-effect {{ Request::is('transactions*') ? "mm-active":'' }}">
+                        <a href="{{ route('transactions.index') }}" class="waves-effect {{ Request::is('transactions') ? "mm-active":'' }}">
                             <i class="fas fa-exchange-alt"></i>
                             <span>Транзакции</span>
                         </a>

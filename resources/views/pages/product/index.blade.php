@@ -55,7 +55,7 @@
                                             @endcan
                                         </td>
                                         <td>{{ number_format($product->price) }}</td>
-                                        <td>{{ $product->surcharge }}%</td>
+                                        <td>{{ $product->surcharge }}</td>
                                         <td>{{ number_format($product->sale_price) }}</td>
                                         <td>{{ $product->count }}</td>
                                         <td>
