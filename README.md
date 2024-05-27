@@ -1,1 +1,2 @@
-## merchantry
+## merchantry - FistiMax
+
