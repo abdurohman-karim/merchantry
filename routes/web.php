@@ -43,6 +43,7 @@ Route::group(['middleware'=>"auth"],function (){
     Route::get('/transactions/out', [TransactionController::class, 'outcome'])->name('transactions.out');
     Route::post('/transactions/income', [TransactionController::class, 'incomeStore'])->name('transactions.income');
     Route::post('/transactions/outcome', [TransactionController::class, 'outcomeStore'])->name('transactions.outcome');
+    Route::post('/transactions/delete-all', [TransactionController::class, 'deleteAll'])->name('transactions.delete_all');
 
 
     # Resources

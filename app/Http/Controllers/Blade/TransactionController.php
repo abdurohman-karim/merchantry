@@ -44,7 +44,7 @@ class TransactionController extends Controller
                 $product = Product::findOrFail($productId);
 
                 // Calculate the sum for this transaction
-                $sum = (float)$counts[$key] * (float)$prices[$key];
+                $sum = (int)$counts[$key] * (int)str_replace(',', '', $prices[$key]);
 
                 // Create a new transaction entry
                 Transaction::create([
@@ -77,7 +77,67 @@ class TransactionController extends Controller
 
     public function outcome()
     {
-        return view('pages.transaction.outcome');
+        $products = Product::all();
+        $merchants = Merchant::all();
+        return view('pages.transaction.outcome', compact('products', 'merchants'));
+    }
+
+
+    public function outcomeStore(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Extract data from the request
+            $productIds = $request->input('product_id');
+            $counts = $request->input('count');
+            $prices = $request->input('price');
+            $merchantId = $request->input('merchant_id'); // Make sure you use merchant_id not merchants
+
+            // Loop through each product entry
+            foreach ($productIds as $key => $productId) {
+                // Retrieve the product from the database
+                $product = Product::findOrFail($productId);
+
+                // Calculate the sum for this transaction
+                $sum = (int)$counts[$key] * (int)str_replace(',', '', $prices[$key]);
+
+                // Create a new transaction entry
+                Transaction::create([
+                    'product_id' => $productId,
+                    'count' => $counts[$key],
+                    'type' => 'out', // Assuming all transactions in this method are outgoing
+                    'date' => now(), // Using Laravel's built-in helper for current timestamp
+                    'sum' => $sum,
+                    'price' => (int)str_replace(',', '', $prices[$key]),
+                    'merchant_id' => $merchantId, // Use merchant_id from the request
+                ]);
+
+                // Update the product count
+                $product->count -= (int)$counts[$key];
+                $product->save();
+            }
+
+            DB::commit();
+
+            // Optionally, you can redirect the user after processing the form
+            message_set('Транзакции добавлены', 'success');
+            return redirect()->route('transactions.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Handle any exceptions or errors
+            message_set('Ошибка: ' . $e->getMessage(), 'error');
+            return redirect()->back();
+        }
+    }
+
+
+    public function deleteAll(){
+        Transaction::truncate();
+
+        message_set('Транзакции удалены', 'success');
+        return redirect()->route('transactions.index');
     }
 
     public function create(){

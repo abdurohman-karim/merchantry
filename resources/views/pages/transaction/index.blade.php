@@ -19,6 +19,18 @@
                         <div class="col-sm-12 col-lg-6">
                             <h4 class="card-title">Транзакции</h4>
                         </div>
+                        @can('transactions.delete_all')
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="text-sm-end">
+                                    <form action="{{route('transactions.delete_all') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm btn-rounded waves-effect waves-light mb-2 me-1">
+                                            <i class="fa fa-trash font-size-12 align-middle me-2"></i>Удалить все
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endcan
                         <div class="col-sm-12 col-lg-12">
                             <table class="table table-centered mb-0">
                                 <thead>
