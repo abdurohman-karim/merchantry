@@ -104,8 +104,17 @@
                 salePriceInput.value = salePrice;
             }
 
+            function calculateSurcharge() {
+                const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
+                const salePrice = parseFloat(salePriceInput.value.replace(/,/g, '')) || 0;
+                const surcharge = ((salePrice / price) - 1) * 100;
+
+                surchargeInput.value = Math.round(surcharge); // Round to the nearest whole number
+            }
+
             priceInput.addEventListener('input', calculateSalePrice);
             surchargeInput.addEventListener('input', calculateSalePrice);
+            salePriceInput.addEventListener('input', calculateSurcharge);
 
             // Initial calculation
             calculateSalePrice();

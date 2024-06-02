@@ -29,7 +29,7 @@
                                 <tbody>
                                 @foreach($transactions as $transaction)
                                     <tr>
-                                        <td>{{ $transaction->date }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($transaction->date)->format('d/m/Y') }}</td>
                                         <td>{{ $transaction->total }}</td>
                                         <td>
                                             <a href="{{ route('transactions.show_by_date', $transaction->date) }}" class="btn btn-primary btn-sm">Посмотреть транзакции</a>

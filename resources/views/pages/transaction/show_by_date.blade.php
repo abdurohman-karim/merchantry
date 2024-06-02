@@ -20,10 +20,10 @@
                         <div class="col-sm-12 col-lg-6">
                             <h4 class="card-title">Итоги за день</h4>
                             <ul class="list-unstyled">
-                                <li><strong>Общая сумма дохода:</strong> {{ number_format($totalIncomePrice) }}</li>
+                                <li><strong>Общая сумма прихода:</strong> {{ number_format($totalIncomePrice) }}</li>
                                 <li><strong>Общая сумма расхода:</strong> {{ number_format($totalOutcomePrice) }}</li>
-                                <li><strong>Общее количество приходных транзакций:</strong> {{ $totalIncomeCount }}</li>
-                                <li><strong>Общее количество расходных транзакций:</strong> {{ $totalOutcomeCount }}</li>
+                                <li><strong>Общее количество приходных штук:</strong> {{ $totalIncomeCount }}</li>
+                                <li><strong>Общее количество расходных штук:</strong> {{ $totalOutcomeCount }}</li>
                             </ul>
                         </div>
                     </div>
