@@ -14,10 +14,27 @@ class TransactionController extends Controller
 
     public function index()
     {
-
-        $transactions = Transaction::orderBy('id', 'desc')->get();
+        $transactions = DB::table('transactions')
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->orderBy('date', 'desc')
+            ->get();
 
         return view('pages.transaction.index', compact('transactions'));
+    }
+
+    public function showByDate($date)
+    {
+        $transactions = Transaction::whereDate('created_at', $date)->get();
+
+        $totalIncomePrice = $transactions->where('type', 'in')->sum('sum');
+        $totalOutcomePrice = $transactions->where('type', 'out')->sum('sum');
+        $totalIncomeCount = $transactions->where('type', 'in')->sum('count');
+        $totalOutcomeCount = $transactions->where('type', 'out')->sum('count');
+
+        return view('pages.transaction.show_by_date', compact(
+            'transactions', 'date', 'totalIncomePrice', 'totalOutcomePrice', 'totalIncomeCount', 'totalOutcomeCount'
+        ));
     }
 
     public function income()
