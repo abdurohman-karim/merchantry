@@ -17,9 +17,14 @@ class MerchantController extends Controller
     }
 
     public function show($id){
-        is_forbidden('merchants.show');
-        $merchant = Merchant::find($id);
-        return view('pages.merchant.show', compact('merchant'));
+        $merchant = Merchant::with(['transactions.product'])->findOrFail($id);
+
+        // Group transactions by date
+        $groupedTransactions = $merchant->transactions->groupBy(function($transaction) {
+            return $transaction->created_at->format('Y-m-d');
+        });
+
+        return view('pages.merchant.show', compact('merchant', 'groupedTransactions'));
     }
 
     public function create(){
