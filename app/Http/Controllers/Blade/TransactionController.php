@@ -38,6 +38,7 @@ class TransactionController extends Controller
             $counts = $request->input('count');
             $prices = $request->input('price');
 
+
             // Loop through each product entry
             foreach ($productIds as $key => $productId) {
                 // Retrieve the product from the database
@@ -56,8 +57,11 @@ class TransactionController extends Controller
                     'price' => (int)str_replace(',', '', $prices[$key]),
                 ]);
 
+
                 // Update the product count
                 $product->count += (int)$counts[$key];
+                $product->price = (int)str_replace(',', '', $prices[$key]);
+                $product->sale_price = (int)str_replace(',', '', $prices[$key]) * ((int)$product->surcharge / 100) + (int)str_replace(',', '', $prices[$key]);
                 $product->save();
             }
 
@@ -98,6 +102,11 @@ class TransactionController extends Controller
             foreach ($productIds as $key => $productId) {
                 // Retrieve the product from the database
                 $product = Product::findOrFail($productId);
+
+                if ($product->count < $counts[$key]) {
+                    message_set('Недостаточно единиц продукта', 'error');
+                    return redirect()->back();
+                }
 
                 // Calculate the sum for this transaction
                 $sum = (int)$counts[$key] * (int)str_replace(',', '', $prices[$key]);
