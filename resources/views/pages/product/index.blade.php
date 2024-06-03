@@ -23,6 +23,31 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ route('products.index') }}" method="get">
+                        <div class="d-flex justify-content-between">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <input type="text" name="name" class="form-control" value="{{ old('name', request()->name) }}" placeholder="Название">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary btn-rounded">Поиск</button>
+                                <a href="{{ route('products.index') }}" class="btn btn-secondary btn-rounded">
+                                    <i class="fas fa-redo"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">

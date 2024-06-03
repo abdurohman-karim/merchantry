@@ -12,7 +12,8 @@ class ProductController extends Controller
     public function index()
     {
         is_forbidden('products.index');
-        $products = Product::paginate(10);
+        $products = Product::deepFilters()->paginate(10);
+
         return view('pages.product.index', compact('products'));
     }
 

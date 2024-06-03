@@ -49,7 +49,7 @@
                                             </td>
                                             <td>{{ $merchant->phone }}</td>
                                             <td>
-                                                @canany(['merchant.edit', 'merchant.delete'])
+                                                @canany(['merchants.edit', 'merchants.delete'])
                                                     <div class="btn-group btn-group-sm gap-1">
                                                         @can('merchant.edit')
                                                             <a href="{{ route('merchants.edit', $merchant->id) }}"
@@ -57,7 +57,7 @@
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
                                                         @endcan
-                                                        @can('merchant.delete')
+                                                        @can('merchants.delete')
                                                             <form action="{{ route('merchants.delete', $merchant->id) }}" method="post">
                                                                 @csrf
                                                                 @method('delete')
