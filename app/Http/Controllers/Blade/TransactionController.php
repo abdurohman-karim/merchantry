@@ -39,13 +39,14 @@ class TransactionController extends Controller
 
     public function income()
     {
+        is_forbidden('transactions.income');
         $products = Product::all();
         return view('pages.transaction.income', compact('products'));
     }
 
     public function incomeStore(Request $request)
     {
-
+        is_forbidden('transactions.income');
 
         try {
             DB::beginTransaction();
@@ -98,6 +99,7 @@ class TransactionController extends Controller
 
     public function outcome()
     {
+        is_forbidden('transactions.outcome');
         $products = Product::all();
         $merchants = Merchant::all();
         return view('pages.transaction.outcome', compact('products', 'merchants'));
@@ -106,6 +108,7 @@ class TransactionController extends Controller
 
     public function outcomeStore(Request $request)
     {
+        is_forbidden('transactions.outcome');
         try {
             DB::beginTransaction();
 
@@ -160,6 +163,7 @@ class TransactionController extends Controller
 
 
     public function deleteAll(){
+        is_forbidden('transactions.delete_all');
         Transaction::truncate();
 
         message_set('Транзакции удалены', 'success');

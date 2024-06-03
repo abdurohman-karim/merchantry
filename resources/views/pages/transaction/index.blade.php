@@ -16,6 +16,17 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <div class="card-title">
+                        @can('transaction.delete_all')
+                            <form action="{{ route('transactions.delete_all') }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="bx bx-trash"></i>
+                                    Удалить все
+                                </button>
+                            </form>
+                        @endcan
+                    </div>
                     <div class="row mb-3">
                         <div class="col-sm-12 col-lg-12">
                             <table class="table table-centered mb-0">
