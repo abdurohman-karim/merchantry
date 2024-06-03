@@ -85,6 +85,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="col-sm-12 col-lg-12">
+                            {{ $products->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
