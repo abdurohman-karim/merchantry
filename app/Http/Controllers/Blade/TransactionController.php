@@ -15,7 +15,7 @@ class TransactionController extends Controller
     public function index()
     {
         is_forbidden('transactions.index');
-        $transactions = DB::table('transactions')
+        $transactions = Transaction::deepFilters()
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
             ->groupBy(DB::raw('DATE(created_at)'))
             ->orderBy('date', 'desc')
