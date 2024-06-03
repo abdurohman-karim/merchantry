@@ -14,6 +14,7 @@ class TransactionController extends Controller
 
     public function index()
     {
+        is_forbidden('transactions.index');
         $transactions = DB::table('transactions')
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
             ->groupBy(DB::raw('DATE(created_at)'))
@@ -25,6 +26,7 @@ class TransactionController extends Controller
 
     public function showByDate($date)
     {
+        is_forbidden('transactions.index');
         $transactions = Transaction::whereDate('created_at', $date)->get();
 
         $totalIncomePrice = $transactions->where('type', 'in')->sum('sum');
@@ -171,6 +173,7 @@ class TransactionController extends Controller
     }
 
     public function create(){
+        is_forbidden('transactions.create');
         $products = Product::all();
         $merchants = Merchant::all();
         return view('pages.transaction.create', compact('products', 'merchants'));
@@ -178,6 +181,7 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
+        is_forbidden('transactions.create');
         $request->validate([
             'product_id' => 'required',
             'count' => 'required',

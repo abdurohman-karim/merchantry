@@ -64,7 +64,7 @@
                         </a>
                     </li>
                 @endcan
-                @can('transactions.in')
+                @can('transactions.income')
                     <li>
                         <a href="{{ route('transactions.in') }}" class="waves-effect {{ Request::is('transactions/in*') ? "mm-active":'' }}">
                             <i class="fas fa-arrow-circle-down"></i>
@@ -72,7 +72,7 @@
                         </a>
                     </li>
                 @endcan
-                @can('transactions.out')
+                @can('transactions.outcome')
                     <li>
                         <a href="{{ route('transactions.out') }}" class="waves-effect {{ Request::is('transactions/out*') ? "mm-active":'' }}">
                             <i class="fas fa-arrow-circle-up"></i>
