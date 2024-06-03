@@ -111,7 +111,7 @@
                             </table>
                         </div>
                         <div class="col-sm-12 col-lg-12">
-                            {{ $products->links() }}
+                            {{ $products->withQueryString()->links() }}
                         </div>
                     </div>
                 </div>
