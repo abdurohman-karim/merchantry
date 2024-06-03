@@ -75,6 +75,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="col-sm-12 col-lg-12">
+                            {{ $transactions->withQueryString()->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

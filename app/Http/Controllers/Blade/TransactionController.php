@@ -19,7 +19,7 @@ class TransactionController extends Controller
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
             ->groupBy(DB::raw('DATE(created_at)'))
             ->orderBy('date', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('pages.transaction.index', compact('transactions'));
     }
