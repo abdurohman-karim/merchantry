@@ -6,9 +6,20 @@
 
 @section('content')
     <div class="row mb-3">
-        <div class="col-lg-8 col-sm-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Транзакции</h4>
+        <div class="col-lg-12 col-sm-12">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Транзакции</h4>
+                </div>
+                @can('transaction.delete_all')
+                    <form action="{{ route('transactions.delete_all') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm btn-rounded waves-effect waves-light mb-2 me-2">
+                            <i class="fas fa-trash"></i>
+                            Удалить все
+                        </button>
+                    </form>
+                @endcan
             </div>
         </div>
     </div>
@@ -16,17 +27,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">
-                        @can('transaction.delete_all')
-                            <form action="{{ route('transactions.delete_all') }}" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="bx bx-trash"></i>
-                                    Удалить все
-                                </button>
-                            </form>
-                        @endcan
-                    </div>
                     <div class="row mb-3">
                         <div class="col-sm-12 col-lg-12">
                             <table class="table table-centered mb-0">

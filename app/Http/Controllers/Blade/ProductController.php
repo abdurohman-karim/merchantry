@@ -75,4 +75,11 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
+    public function deleteAll(){
+        is_forbidden('products.delete_all');
+        Product::truncate();
+        message_set('Товары успешно удалены', 'success');
+        return redirect()->route('products.index');
+    }
+
 }

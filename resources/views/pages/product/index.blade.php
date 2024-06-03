@@ -5,9 +5,20 @@
 
 @section('content')
     <div class="row mb-3">
-        <div class="col-lg-8 col-sm-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Продукты</h4>
+        <div class="col-lg-12 col-sm-12">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Продукты</h4>
+                </div>
+                @can('products.delete_all')
+                    <form action="{{ route('products.delete_all') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm btn-rounded waves-effect waves-light mb-2 me-2">
+                            <i class="fa fa-trash align-middle font-size-12"></i>
+                            Удалить все
+                        </button>
+                    </form>
+                @endcan
             </div>
         </div>
     </div>
