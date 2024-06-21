@@ -46,7 +46,7 @@
                                     <div class="col-md-12">
                                         <div class="mb-3">
                                             <label class="form-label">Процент надбавки %</label>
-                                            <input type="text" id="surcharge" name="surcharge" class="form-control numberFormat @error('surcharge') is-invalid @enderror" value="{{ old('surcharge', 0) }}" maxlength="3">
+                                            <input type="text" id="surcharge" name="surcharge" class="form-control numberFormat @error('surcharge') is-invalid @enderror" value="{{ old('surcharge', 1) }}" maxlength="3">
                                             @error('surcharge')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -92,8 +92,8 @@
 
             function calculateSalePrice() {
                 const price = parseFloat(priceInput.value.replace(/,/g, '')) || 0;
-                const surcharge = parseFloat(surchargeInput.value) || 0;
-                let salePrice = price * (1 + surcharge / 100);
+                const surcharge = parseFloat(surchargeInput.value) || 1;
+                let salePrice = price + (price * surcharge / 100);
 
                 // Check if the decimal part is less than 0.01 (1 cent)
                 if (salePrice % 1 < 0.01) {

@@ -67,7 +67,17 @@ class TransactionController extends Controller
                 // Calculate the sum for this transaction
                 $sum = (int)$counts[$key] * (int)str_replace(',', '', $prices[$key]);
 
+
+                // Update the product count
+                $product->count += (int)$counts[$key];
+                $product->price = (int)str_replace(',', '', $prices[$key]);
+                $sur = floatval($product->sale_price/$product->price);
+                $product->sale_price = (int)str_replace(',', '', $prices[$key]) * $sur;
+                $product->sale_price = round($product->sale_price,2);
+                $product->save();
                 // Create a new transaction entry
+
+
                 Transaction::create([
                     'product_id' => $productId,
                     'count' => $counts[$key],
@@ -76,13 +86,6 @@ class TransactionController extends Controller
                     'sum' => $sum,
                     'price' => (int)str_replace(',', '', $prices[$key]),
                 ]);
-
-
-                // Update the product count
-                $product->count += (int)$counts[$key];
-                $product->price = (int)str_replace(',', '', $prices[$key]);
-                $product->sale_price = (int)str_replace(',', '', $prices[$key]) * ((int)$product->surcharge / 100) + (int)str_replace(',', '', $prices[$key]);
-                $product->save();
             }
 
             DB::commit();
