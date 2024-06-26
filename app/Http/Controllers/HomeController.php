@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Transaction;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $incomeSum = Transaction::where('type', 'in')->whereMonth('created_at', date('m'))->sum('sum');
+        $outcomeSum = Transaction::where('type', 'out')->whereMonth('created_at', date('m'))->sum('sum');
+        return view('home', compact('incomeSum', 'outcomeSum'));
     }
 }
