@@ -20,7 +20,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <p class="text-muted mb-4">Bu oy kirim & chiqimlar:</p>
+                            <p class="text-muted mb-4">Доходы и расходы на этот месяц:</p>
                             <div class="text-center">
                                 <div class="row">
                                     <div class="col-sm-4">
@@ -29,7 +29,7 @@
                                                 <i class="bx bx-import"></i>
                                             </div>
 
-                                            <p class="text-muted mb-2">Kirim</p>
+                                            <p class="text-muted mb-2">Доход</p>
                                             <h5>{{ number_format($outcomeSum) ?? 0 }} sum</h5>
                                         </div>
                                     </div>
@@ -39,7 +39,7 @@
                                                 <i class="bx bx-export"></i>
                                             </div>
 
-                                            <p class="text-muted mb-2">Chiqim</p>
+                                            <p class="text-muted mb-2">Расход</p>
                                             <h5>{{ number_format($incomeSum) ?? 0 }} sum</h5>
                                         </div>
                                     </div>
@@ -49,7 +49,7 @@
                                                 <i class="bx bx-dollar"></i>
                                             </div>
 
-                                            <p class="text-muted mb-2">Daromad</p>
+                                            <p class="text-muted mb-2">Прибыль</p>
                                             <h5 class="{{ $incomeSum - $outcomeSum > 0 ? 'text-danger' : 'text-success' }}">{{ number_format($outcomeSum - $incomeSum) ?? 0 }} sum</h5>
                                         </div>
                                     </div>
