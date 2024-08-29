@@ -26,7 +26,7 @@
                             <div class="mb-3">
                                 <p class="text-muted">
                                     Общий расход на суммах: <br>
-                                    <span class="badge bg-soft badge-soft-success fs-6 mt-1">{{ number_format($merchant->transactions->sum('sum')) }} сум</span>
+                                    <span class="badge bg-soft badge-soft-success fs-6 mt-1">{{ number_format($merchant->transactions->where('status', 'active')->sum('sum')) }} сум</span>
                                 </p>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             <div class="mb-3">
                                 <p class="text-muted">
                                     Общий расход на штуках: <br>
-                                    <span class="badge bg-soft badge-soft-success fs-6 mt-1">{{ number_format($merchant->transactions->sum('count')) }} шт</span>
+                                    <span class="badge bg-soft badge-soft-success fs-6 mt-1">{{ number_format($merchant->transactions->where('status', 'active')->sum('count')) }} шт</span>
                                 </p>
                             </div>
                         </div>
@@ -51,6 +51,7 @@
                                 <th>Цена</th>
                                 <th>Штук</th>
                                 <th>Сумма</th>
+                                <th>Статус</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -67,11 +68,21 @@
                                     <td>{{ number_format($transaction->price, 2) }}</td>
                                     <td>{{ $transaction->count }}</td>
                                     <td>{{ number_format($transaction->sum) }}</td>
+                                    <td>
+                                        @if($transaction->status == 'active')
+                                            <form action="{{ route('transactions.cancel', $transaction->id) }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm">Отменить</button>
+                                            </form>
+                                        @else
+                                            <button class="btn btn-danger btn-sm disabled"> Отменен</button>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             <tr>
                                 <td colspan="4" class="text-end"><strong>Общая сумма расхода</strong></td>
-                                <td>{{ number_format($transactions->sum('sum')) }}</td>
+                                <td>{{ number_format($transactions->where('status', 'active')->sum('sum')) }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -83,4 +94,21 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cancelButtons = document.querySelectorAll('form[action*="transactions/cancel"] button[type="submit"]');
+            cancelButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent form submission
+                    const confirmation = confirm('Вы уверены, что хотите отменить эту транзакцию?');
+                    if (confirmation) {
+                        this.closest('form').submit(); // Submit the form if confirmed
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

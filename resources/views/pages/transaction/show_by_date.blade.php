@@ -39,11 +39,12 @@
                                     <th>Сумма</th>
                                     <th>Мерчант</th>
                                     <th>Тип</th>
+                                    <th>Действие</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($transactions as $transaction)
-                                    <tr>
+                                    <tr class="@if ($transaction->status == 'cancel') bg-soft bg-danger @endif">
                                         <td>{{ $transaction->created_at }}</td>
                                         <td>{{ $transaction->product->name ?? '-' }}</td>
                                         <td>{{ $transaction->count }}</td>
@@ -55,6 +56,16 @@
                                                 <span class="badge badge-soft-success font-size-12">Приход</span>
                                             @else
                                                 <span class="badge badge-soft-danger font-size-12">Расход</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($transaction->status == 'active')
+                                                <form action="{{ route('transactions.cancel', $transaction->id) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm">Отменить</button>
+                                                </form>
+                                            @else
+                                                <button class="btn btn-danger btn-sm disabled"> Отменен</button>
                                             @endif
                                         </td>
                                     </tr>
@@ -72,4 +83,21 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cancelButtons = document.querySelectorAll('form[action*="transactions/cancel"] button[type="submit"]');
+            cancelButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent form submission
+                    const confirmation = confirm('Вы уверены, что хотите отменить эту транзакцию?');
+                    if (confirmation) {
+                        this.closest('form').submit(); // Submit the form if confirmed
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

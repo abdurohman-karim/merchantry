@@ -175,6 +175,39 @@ class TransactionController extends Controller
         return redirect()->route('transactions.index');
     }
 
+    public function cancel($id)
+    {
+        is_forbidden('transactions.cancel');
+
+        $transaction = Transaction::findOrFail($id);
+        $product = Product::findOrFail($transaction->product_id);
+
+        if ($transaction->status !== 'active') {
+            message_set('Транзакция уже отменена', 'error');
+            return redirect()->route('transactions.show_by_date', ['date' => $transaction->date]);
+        }
+
+        // check if out transaction exist in transaction
+        if ($transaction->type === 'in') {
+            $out_transaction = Transaction::where('product_id', $transaction->product_id)->where('type', 'out')->first();
+            if ($out_transaction && $out_transaction->status !== 'cancel') {
+                message_set('На товаре есть выходная транзакция', 'error');
+                return redirect()->route('transactions.show_by_date', ['date' => $transaction->date]);
+            }
+        }
+
+        $adjustment = $transaction->type === 'in' ? -1 : 1;
+        $product->count = (string)((int)$product->count + $adjustment * (int)$transaction->count);
+        $product->save();
+
+        $transaction->status = 'cancel';
+        $transaction->save();
+
+        message_set('Транзакция отменена', 'success');
+        return redirect()->route('transactions.show_by_date', ['date' => $transaction->date]);
+    }
+
+
     public function create(){
         is_forbidden('transactions.create');
         $products = Product::all();

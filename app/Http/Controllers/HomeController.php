@@ -24,8 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $incomeSum = Transaction::where('type', 'in')->whereMonth('created_at', date('m'))->sum('sum');
-        $outcomeSum = Transaction::where('type', 'out')->whereMonth('created_at', date('m'))->sum('sum');
+        $incomeSum = Transaction::where('type', 'in')->whereMonth('created_at', date('m'))->where('status', 'active')->sum('sum');
+        $outcomeSum = Transaction::where('type', 'out')->whereMonth('created_at', date('m'))->where('status', 'active')->sum('sum');
         return view('home', compact('incomeSum', 'outcomeSum'));
     }
 }

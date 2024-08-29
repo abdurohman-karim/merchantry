@@ -21,7 +21,8 @@ class Transaction extends Model
         'merchant_id',
         'type',
         'date',
-        'price'
+        'price',
+        'status',
     ];
 
     public function product(){
