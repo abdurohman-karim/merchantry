@@ -70,10 +70,12 @@
                                     <td>{{ number_format($transaction->sum) }}</td>
                                     <td>
                                         @if($transaction->status == 'active')
-                                            <form action="{{ route('transactions.cancel', $transaction->id) }}" method="post">
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm">Отменить</button>
-                                            </form>
+                                            @can('transactions.cancel')
+                                                <form action="{{ route('transactions.cancel', $transaction->id) }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm">Отменить</button>
+                                                </form>
+                                            @endcan
                                         @else
                                             <button class="btn btn-danger btn-sm disabled"> Отменен</button>
                                         @endif
