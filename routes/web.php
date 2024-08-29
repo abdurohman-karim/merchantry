@@ -9,6 +9,7 @@ use App\Http\Controllers\Blade\UserController;
 use App\Http\Controllers\Blade\MerchantController;
 use App\Http\Controllers\Blade\ProductController;
 use App\Http\Controllers\Blade\TransactionController;
+use App\Http\Controllers\Blade\WasteController;
 
 Auth::routes();
 Route::group(['middleware'=>"auth"],function (){
@@ -47,6 +48,12 @@ Route::group(['middleware'=>"auth"],function (){
     Route::post('/transactions/cancel/{id}', [TransactionController::class, 'cancel'])->name('transactions.cancel');
     Route::get('/transactions/{date}', [TransactionController::class, 'showByDate'])->name('transactions.show_by_date');
     Route::post('/transactions/delete-all', [TransactionController::class, 'deleteAll'])->name('transactions.delete_all');
+
+    // Waste
+    Route::get('/waste', [WasteController::class, 'index'])->name('waste.index');
+    Route::get('/waste/create', [WasteController::class, 'create'])->name('waste.create');
+    Route::post('/waste/store', [WasteController::class, 'store'])->name('waste.store');
+    Route::delete('/waste/{id}/delete', [WasteController::class, 'delete'])->name('waste.delete');
 
 
     # Resources

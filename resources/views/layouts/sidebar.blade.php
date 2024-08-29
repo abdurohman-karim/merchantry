@@ -80,6 +80,14 @@
                         </a>
                     </li>
                 @endcan
+                @can('waste.index')
+                    <li>
+                        <a href="{{ route('waste.index') }}" class="waves-effect {{ Request::is('waste*') ? "mm-active":'' }}">
+                            <i class="fas fa-trash"></i>
+                            <span>Отход</span>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </div>
     </div>
