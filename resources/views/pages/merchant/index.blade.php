@@ -80,3 +80,20 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('form[action*="merchants/delete"] button[type="submit"]');
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent form submission
+                    const confirmation = confirm('Вы уверены, что хотите удалить этот магазин?');
+                    if (confirmation) {
+                        this.closest('form').submit(); // Submit the form if confirmed
+                    }
+                });
+            });
+        });
+    </script>
+@endsection

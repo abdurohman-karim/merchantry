@@ -23,7 +23,7 @@ Route::group(['middleware'=>"auth"],function (){
     Route::post('/merchants/store', [MerchantController::class,'store'])->name('merchants.store');
     Route::get('/merchants/{id}/edit', [MerchantController::class,'edit'])->name('merchants.edit');
     Route::post('/merchants/{id}/update', [MerchantController::class,'update'])->name('merchants.update');
-    Route::delete('/merchants/{id}/delete', [MerchantController::class,'delete'])->name('merchants.delete');
+    Route::delete('/merchants/delete/{id}', [MerchantController::class,'delete'])->name('merchants.delete');
 
     // Products
     Route::get('/products', [ProductController::class,'index'])->name('products.index');
